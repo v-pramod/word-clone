@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 
-export default function Input_box({ handleUserGuess }) {
-  const [userGuess, setUserGuess] = useState("");
+export default function Input_box({ handleGuessSubmit }) {
+  const [guess, setGuess] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    const arr = [...guess];
+    console.log(guess);
 
-    console.log({ userGuess });
+    handleGuessSubmit(guess);
+    setGuess("");
   };
 
   return (
@@ -17,9 +20,9 @@ export default function Input_box({ handleUserGuess }) {
           required
           pattern="[a-zA-Z]{5}"
           title="5 lettered word"
-          value={userGuess}
+          value={guess}
           onChange={(event) => {
-            setUserGuess(event.target.value);
+            setGuess(event.target.value.toUpperCase());
           }}
           id="guessinput"
           type="text"
