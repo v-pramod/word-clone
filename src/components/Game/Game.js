@@ -14,34 +14,58 @@ const numOfRows = NUM_OF_GUESSES_ALLOWED;
 console.info({ answer });
 
 function Game() {
-  const [guessArray, setGuessArray] = useState([]);
+	const [guessArray, setGuessArray] = useState([]);
+	const [numOfGuesses, setNumOfGuesses] = useState(0);
+	const [isCorrect, setIsCorrect] = useState(false);
 
-  const handleGuessSubmit = (guess) => {
-    const newGuessArray = [...guessArray, guess];
-    setGuessArray(newGuessArray);
-  };
+	let isFinished;
 
-  const guessBox = () => {
-    const components = [];
+	if (isCorrect || numOfGuesses === 6) {
+		isFinished = true;
+	}
 
-    for (let i = 0; i < numOfRows; i++) {
-      if (guessArray.length > i)
-        components.push(
-          <GuessBox key={i} guess={guessArray[i]} answer={answer} />
-        );
-      else components.push(<GuessBox key={i} guess="     " answer={answer} />);
-    }
-    return components;
-  };
+	const handleGuessSubmit = (guess) => {
+		const newGuessArray = [...guessArray, guess];
+		setGuessArray(newGuessArray);
+		setNumOfGuesses(numOfGuesses + 1);
+		if (guess === answer) {
+			setIsCorrect(true);
+		}
+	};
 
-  return (
-    <>
-      {/* <div>{guessBox()}</div> */}
+	const Win = ({ numOfGuesses }) => {
+		return (
+			<div className='happy banner'>
+				<p>
+					<strong>Congratulations!</strong> Got it in
+					<strong> {numOfGuesses} guesses</strong>.
+				</p>
+			</div>
+		);
+	};
 
-      <GuessResult guessArray={guessArray} answer={answer} />
-      <Input_box handleGuessSubmit={handleGuessSubmit} />
-    </>
-  );
+	const Lose = ({ answer }) => {
+		return (
+			<div className='sad banner'>
+				<p>
+					Sorry, the correct answer is <strong>{answer}</strong>.
+				</p>
+			</div>
+		);
+	};
+
+	return (
+		<>
+			<GuessResult guessArray={guessArray} answer={answer} />
+			{isCorrect && <Win numOfGuesses={numOfGuesses} />}
+			{numOfGuesses > 5 && !isCorrect && <Lose answer={answer} />}
+			<Input_box
+				handleGuessSubmit={handleGuessSubmit}
+				answer={answer}
+				isFinished={isFinished}
+			/>
+		</>
+	);
 }
 
 export default Game;

@@ -1,36 +1,38 @@
 import React, { useState } from "react";
+import { NUM_OF_GUESSES_ALLOWED } from "../../constants";
 
-export default function Input_box({ handleGuessSubmit }) {
-  const [guess, setGuess] = useState("");
-  const [numOfGuesses, setNumOfGuesses] = useState(0);
-  
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const arr = [...guess];
-    console.log(guess);
+const numOfGuessAllowed = NUM_OF_GUESSES_ALLOWED;
+const disable = "disabled";
 
-    setNumOfGuesses(numOfGuesses + 1);
+export default function Input_box({ handleGuessSubmit, isFinished }) {
+	const [guess, setGuess] = useState("");
 
-    handleGuessSubmit(guess);
-    setGuess("");
-  };
+	const handleSubmit = (event) => {
+		event.preventDefault();
+		const arr = [...guess];
+		console.log(guess);
 
-  return (
-    <>
-      <form className="guess-input-wrapper" onSubmit={handleSubmit}>
-        <label htmlFor="guessinput">Enter guess:</label>
-        <input
-          required
-          pattern="[a-zA-Z]{5}"
-          title="5 lettered word"
-          value={guess}
-          onChange={(event) => {
-            setGuess(event.target.value.toUpperCase());
-          }}
-          id="guessinput"
-          type="text"
-        />
-      </form>
-    </>
-  );
+		handleGuessSubmit(guess);
+		setGuess("");
+	};
+
+	return (
+		<>
+			<form className='guess-input-wrapper' onSubmit={handleSubmit}>
+				<label htmlFor='guessinput'>Enter guess:</label>
+				<input
+					required
+					pattern='[a-zA-Z]{5}'
+					title='5 lettered word'
+					value={guess}
+					onChange={(event) => {
+						setGuess(event.target.value.toUpperCase());
+					}}
+					id='guessinput'
+					type='text'
+					disabled={isFinished}
+				/>
+			</form>
+		</>
+	);
 }
