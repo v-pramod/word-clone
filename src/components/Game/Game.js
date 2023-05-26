@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { sample } from "../../utils";
+import { range, sample } from "../../utils";
 import { WORDS } from "../../data";
 import Input_box from "../Input_box/Input_box";
 import GuessResult from "../GuessResult/GuessResult";
@@ -15,7 +15,6 @@ console.info({ answer });
 
 function Game() {
   const [guessArray, setGuessArray] = useState([]);
-  
 
   const handleGuessSubmit = (guess) => {
     const newGuessArray = [...guessArray, guess];
@@ -37,8 +36,9 @@ function Game() {
 
   return (
     <>
-      <div>{guessBox()}</div>
-      <GuessResult guessArray={guessArray} />
+      {/* <div>{guessBox()}</div> */}
+
+      <GuessResult guessArray={guessArray} answer={answer} />
       <Input_box handleGuessSubmit={handleGuessSubmit} />
     </>
   );
