@@ -2,11 +2,14 @@ import React, { useState } from "react";
 
 export default function Input_box({ handleGuessSubmit }) {
   const [guess, setGuess] = useState("");
-
+  const [numOfGuesses, setNumOfGuesses] = useState(0);
+  
   const handleSubmit = (event) => {
     event.preventDefault();
     const arr = [...guess];
     console.log(guess);
+
+    setNumOfGuesses(numOfGuesses + 1);
 
     handleGuessSubmit(guess);
     setGuess("");
