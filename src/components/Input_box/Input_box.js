@@ -1,16 +1,10 @@
 import React, { useState } from "react";
-import { NUM_OF_GUESSES_ALLOWED } from "../../constants";
-
-const numOfGuessAllowed = NUM_OF_GUESSES_ALLOWED;
-const disable = "disabled";
 
 export default function Input_box({ handleGuessSubmit, isFinished }) {
 	const [guess, setGuess] = useState("");
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		const arr = [...guess];
-		console.log(guess);
 
 		handleGuessSubmit(guess);
 		setGuess("");

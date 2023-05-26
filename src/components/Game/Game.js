@@ -4,11 +4,8 @@ import { range, sample } from "../../utils";
 import { WORDS } from "../../data";
 import Input_box from "../Input_box/Input_box";
 import GuessResult from "../GuessResult/GuessResult";
-import GuessBox from "../GuessBox/GuessBox";
-import { NUM_OF_GUESSES_ALLOWED } from "../../constants";
 // Pick a random word on every pageload.
 const answer = sample(WORDS);
-const numOfRows = NUM_OF_GUESSES_ALLOWED;
 
 // To make debugging easier, we'll log the solution in the console.
 console.info({ answer });
